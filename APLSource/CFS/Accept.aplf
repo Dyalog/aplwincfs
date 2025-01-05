@@ -1,0 +1,5 @@
+Accept sock ; new
+new ←3⊃ sock ⎕ni 'Accept'
+'New Connection received ',⍕new
+
+new ⎕ni 'Set'  ('onConnectNotify' ('Connected ',⍕new))  ('onCloseNotify' ('Close ',⍕new)) ('onReadNotify' ('Read ',⍕new))

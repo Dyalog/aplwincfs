@@ -1,0 +1,7 @@
+ apl←FromScar scar;r
+ r←#.SQA.Scar2Apl ⎕UCS scar
+ :If 0=⊃r
+     apl←2⊃r
+ :Else
+     ⎕SIGNAL 6
+ :EndIf

@@ -1,0 +1,18 @@
+sock←Connect args;z;step
+
+:If 1=⍴,args
+    args←args,⊂'127.0.0.1'
+:EndIf
+step←'Socket'
+:If 0 0≡2↑z←⎕NI 'Socket'
+   :Ex sock←3⊃z
+   :Ex step←'Connect',0⍴'I' Log 'Socket created'
+:AndIf ¯1 10035≡z←sock ⎕NI (⊂'Connect'),args
+   :Ex step←'Accept',0⍴'I' Log 'Socket connected to ',⍕args
+:AndIf ¯1 10022≡z←sock ⎕NI 'Accept'
+   sock ⎕ni 'Set'  ('onCloseNotify' 'Close') ('onReadNotify' 'Read')
+   'W' Log 'AFS Ready'
+:Else
+   'E' Log 'Unable to connect back to listener: ',⍕step z
+   sock←0
+:EndIf

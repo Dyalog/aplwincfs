@@ -1,0 +1,5 @@
+r←GetCmdArg name;cmdargs
+r←LOWERCASE 3⊃⎕WCALL 'W_Init'
+r←(+\r∊' =')⊂r
+r←(1+r⍳⊂' ',LOWERCASE name)⊃r,⊂''
+r←('='=1↑r)↓r

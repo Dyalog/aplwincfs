@@ -1,0 +1,4 @@
+r←⍙SQAWCALL y
+⍝ Add source (1) when in error
+
+r←((0≠1⊃,r)/1),r←,⎕WCALL y

@@ -1,0 +1,1 @@
+Read sock;r;slen;len;apl;res;resscar;rres⎕←'data available on ',⍕sockr←sock ⎕ni 'Recv' 'char' '' 4slen←3⊃rlen←¯4+(4/256)⊥ ¯1+⎕av⍳ slenr←sock ⎕ni 'Recv' 'char' '' lenapl←2⊃SQAScar2Apl 3⊃rres←'Mange tak' (⍳10)resscar←2⊃SQAApl2Scar res 0rres←  ⎕av[  1+(4/256)⊤4+⍴resscar],resscarsock ⎕ni 'Send' rres 'char'

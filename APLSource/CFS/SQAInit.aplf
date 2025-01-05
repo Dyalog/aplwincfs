@@ -1,0 +1,16 @@
+r←SQAInit a;z
+⍝ Initialize APL Link Pro 6.0 for APL+Win
+
+r←⎕EX '⍙SQASets'
+r←⎕FX ⊃'r←⍙SQAPL y' 'r←⎕WCALL ''SQAPLCall'' y'
+r←⎕WCALL 'SQAPLInit' a (2048⍴' ')
+(2⊃r)←(-+/∧\' '=⌽2⊃r)↓2⊃r
+
+:Select 1⊃r
+:Case 0 ⋄ r←0 ''
+:Case 10091 ⋄ r←¯1,r
+    z←SQASetXlate SQADefaultXlate
+:case 10052
+    r←0,r
+:Else ⋄ r←1,r
+:EndSelect

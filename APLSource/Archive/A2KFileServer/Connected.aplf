@@ -1,0 +1,1 @@
+Connected sock⎕←'we have a ew connection on socket ',⍕sock

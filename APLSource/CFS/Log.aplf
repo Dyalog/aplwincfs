@@ -1,0 +1,9 @@
+r←mode Log message;ts;i;maxrows
+r←0 0⍴0 ⍝ Allow chaining
+→(mode∊LOGMODES)↓0
+ts←,'ZI2,<:>,ZI2,<:>,ZI2' ⎕FMT 1 3⍴3↓⎕TS
+LOGTEXT←LOGTEXT,⎕TCNL,ts,' ',mode,' ',message
+maxrows←3⊃'fmAFS.output' ⎕WI 'where'
+i←(+\⎕TCNL=⌽LOGTEXT)⍳maxrows
+LOGTEXT←(-i)↑LOGTEXT
+'fmAFS.output' ⎕wi 'Set' ('caption' LOGTEXT)

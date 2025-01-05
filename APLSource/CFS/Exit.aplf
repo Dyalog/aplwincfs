@@ -1,0 +1,6 @@
+Exit msg
+'E' Log msg
+'E' Log 'Close form to exit'
+'fmAFS' ⎕WI 'Wait'
+...
+⎕SA←'OFF'

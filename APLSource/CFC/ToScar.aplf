@@ -1,0 +1,7 @@
+ scar←ToScar apl;r
+ r←#.SQA.Apl2Scar apl 0
+ :If 0=⊃r
+     scar←2⊃r
+ :Else
+     ⎕SIGNAL 6
+ :EndIf

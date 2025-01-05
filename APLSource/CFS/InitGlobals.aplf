@@ -1,0 +1,14 @@
+InitGlobals
+
+LOGMODES←'IWE' ⍝ Info, Warning, Error
+
+LOGTEXT←''
+
+ValidFns←'OFF' 'ECHO' '⎕FTIE' '⎕FSTIE' '⎕FREAD' '⎕FSIZE' '⎕FCREATE' '⎕FAPPEND'
+ValidFns,←'⎕FNAMES' '⎕FNUMS' '⎕FRDCI' '⎕FRDAC' '⎕FSTAC' '⎕FUNTIE'
+ValidFns,←'⎕XFCREATE' '⎕XFTIE' '⎕XFSTIE' '⎕XFNUMS' '⎕XFNAMES' '⎕FRENAME' '⎕XFRENAME'
+
+NiladicFns←'⎕FNAMES' '⎕FNUMS'
+
+NonExplicitFns←'⎕XFCREATE' '⎕XFTIE' '⎕XFSTIE' '⎕FCREATE' '⎕FTIE' '⎕FSTIE'
+NonExplicitFns,←'⎕FRENAME' '⎕XFRENAME' '⎕XFUNTIE' '⎕FUNTIE'

@@ -1,0 +1,36 @@
+ r←{larg} (cmd RPC) rarg;seq;data
+ :If '⎕'=1↑cmd ⋄ cmd←'',1↓cmd ⋄ :EndIf ⍝ /// workaround for missing translation
+ SEQUENCE+←1
+ data←⊂rarg
+ :If 2=⎕NC 'larg' ⋄ data,←⊂larg ⋄ :EndIf
+ r←IC.Send CONN (ToScar SEQUENCE cmd,data)
+ :While 0=⊃r
+     r←IC.Wait CONN 10000
+     :Select r[1 3]
+     :Case 0 'Block'
+         seq←⊃r←FromScar 4⊃r
+         :If seq∊SEQUENCE ¯1 ⍝ ¯1 if server was unable to decode the request
+             r←1↓r
+             :Leave
+         :ElseIf seq<SEQUENCE
+             ⎕←'Awaiting response to #',(⍕SEQUENCE),', ignoring #',seq
+             r←1 ⍝ Will cause :While to continue
+         :Else
+             ⎕←'Received HIGHER sequence number??!!'
+             ∘∘∘
+         :EndIf
+     :Case 0 'Timeout'
+         ⍞←'.'
+     :Case 0 'Closed'
+         'Socket closed while waiting' ⎕SIGNAL 11
+     :Else
+         ⎕←r
+         ∘∘∘ ⍝ WTF
+     :EndSelect
+ :EndWhile
+
+ :If 0=⊃r
+     r←2⊃r
+ :Else
+     (⍕r) ⎕SIGNAL 11
+ :EndIf

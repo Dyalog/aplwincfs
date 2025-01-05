@@ -1,0 +1,3 @@
+r←sock Send payload;size
+size←⎕av[⎕IO+,(4/256)⊤4+⍴payload]
+r←sock ⎕ni 'Send' (size,payload) 'char'

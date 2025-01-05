@@ -1,0 +1,4 @@
+MakeForm;z
+z←'fmAFS' ⎕WI 'Delete'
+z←'fmAFS' ⎕wi 'New' 'Form' ('where' 2 2 16 80) ('caption' 'APL+Win File Server')
+z←'fmAFS.output' ⎕WI 'New' 'Label' ('where' 0 1 15 78)('caption' '')

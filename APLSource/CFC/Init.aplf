@@ -1,0 +1,14 @@
+ r←Init;z;p
+ :If 0=#.⎕NC'Conga'
+     'Conga'#.⎕CY'conga'
+ :EndIf
+
+ :If 0=#.⎕NC'Sqapl'
+     'SQA'#.⎕CY'sqapl'
+      #.SQA.Init''
+ :EndIf
+
+ :If 0=⎕NC 'IC'
+     IC←#.Conga.Init''
+     IC.SetProp'.' 'EventMode' 1
+ :EndIf

@@ -1,0 +1,17 @@
+LX;cmdargs;port
+InitGlobals
+MakeForm
+
+:If 0=port←↑⎕FI GetCmdArg 'CFSPORT'
+    Exit 'CFSPORT not found on command line'
+:EndIf
+
+'I' Log 'AFS Starting up'
+
+:If 0≠↑z←SQAInit ''
+    Exit 'Unable to initialise SQAPL: ',⍕z
+:EndIf
+
+:If 0=SOCK←Connect port
+    Exit 'Unable to connect'
+:EndIf

@@ -1,0 +1,1 @@
+Start portsock←3⊃⎕ni 'Socket'sock ⎕ni 'Bind' portsock ⎕ni 'Listen' 5sock ⎕ni 'onAcceptNotify' ('Accept ',⍕sock)

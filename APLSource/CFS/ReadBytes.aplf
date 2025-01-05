@@ -1,0 +1,14 @@
+r←buf ReadBytes args;z;sock;minimum;data
+(sock minimum)←args
+:While minimum>⍴buf
+    z←sock ⎕ni 'Recv' 'char' '' 0
+    :If 0 ∨.≠ 2↑z
+        ⎕←'Recv:' z
+        ∘∘∘
+    :EndIf
+    data←3⊃z
+    'I' Log 'Received ',(⍕⍴data),' bytes ...'
+    buf←buf,data
+:EndWhile
+
+r←(minimum↑buf)(minimum↓buf)

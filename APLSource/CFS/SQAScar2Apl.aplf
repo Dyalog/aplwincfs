@@ -1,0 +1,3 @@
+r←SQAScar2Apl y
+
+ r←⍙SQAPL'FromScar'y

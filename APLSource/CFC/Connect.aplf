@@ -1,0 +1,25 @@
+ r←Connect;done;data;event;rc;id
+ done←0
+
+ ⎕CMD ('c:\aplwin19\aplw.exe c:\aplwin19\CFS CFSPORT=',⍕4⊃PORT) ''
+ SEQUENCE←0
+
+ :Repeat
+     ⎕←'... waiting for connection to ',(⍕2↑PORT),' ...'
+    (rc id event data)←4↑z←IC.Wait SRV 5000
+    :If done←rc≠0
+        r←2 ('Failed to connect to client: ',⍕rc)
+    :Else
+        :Select event
+        :Case 'Connect'
+            done←1 ⋄ CONN←2⊃z
+            →0 ⊣ r←0 CONN
+
+        :Case 'Timeout'
+
+        :Else
+            ...
+            r←1 'some kind of error'
+        :EndSelect
+    :EndIf
+ :Until done
