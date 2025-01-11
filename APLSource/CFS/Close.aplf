@@ -2,4 +2,4 @@ Close;sock;z
 
 sock←⎕NSELF
 'I' Log 'Socket closed ',⍕sock
-z?sock ⎕ni 'Close'
+z←sock ⎕ni 'Close'
