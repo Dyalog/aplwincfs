@@ -1,0 +1,42 @@
+ Test;metsim;metsimd;t;file;i;size1;size2;cn;comps;files;ok
+⍝ Run Start first
+
+ BYTESIN←0
+ ⎕FUNTIE ⎕FNUMS
+ '⎕FUNTIE'RPC'⎕FNUMS'RPC ⍬
+
+ metsim←'C:\METSIM\Examples\'
+ metsimd←'C:\METSIMD\Examples\'
+
+ files←∊¨1↓¨⎕NPARTS¨⊃0 ⎕NINFO⍠1⊢metsim,'*.sfw'
+ files∩←∊¨1↓¨⎕NPARTS¨⊃0 ⎕NINFO⍠1⊢metsimd,'*.sfw'
+ files←3↓files
+
+ :For i :In ⍳≢files
+     ok←0
+     file←i⊃files
+     ⎕←(⍕i),' of ',(⍕≢files),': ',file
+     (metsimd,file)⎕FSTIE 1
+     (metsim,file)('⎕XFSTIE'RPC)1
+     :If (2↑size1←⎕FSIZE 1)≢2↑size2←'⎕FSIZE'RPC 1
+         ⎕←'File component counts do not match: ',(⍕size1),' in Dyalog vs ',⍕size2
+     :Else
+         :For cn :In comps←(¯1+1↑size1)↓⍳size1[2]-1
+             :Trap 999
+                 t←'⎕FREAD'RPC 1 cn
+             :Else
+                 ⎕←'   Unable to read component ',⍕cn
+                 :Continue
+             :EndTrap
+             :If (⎕FREAD 1 cn)≢t
+                 ⎕←'Component ',(⍕cn),' does not match'
+                 ∘∘∘
+             :Else
+                 ok+←1
+             :EndIf
+         :EndFor
+         ⎕←'   ',(⍕ok),' of ',(⍕≢comps),' compared OK'
+     :EndIf
+     ⎕FUNTIE 1
+     '⎕FUNTIE'RPC 1
+ :EndFor

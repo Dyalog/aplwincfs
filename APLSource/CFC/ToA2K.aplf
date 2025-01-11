@@ -1,0 +1,6 @@
+ ToA2K←{⎕IO←0
+  326=⎕DR ⍵:∇¨⍵
+  0≠10|⎕DR ⍵:⍵
+  z←⎕SIGNAL (256∊r←∆AV⍳⍵)/92 ⍝ Translation Error
+  ⎕UCS r
+  ⍵}
