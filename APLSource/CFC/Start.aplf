@@ -1,6 +1,6 @@
 r←Start;z;p;rc;event;data;done
 Init
-:If 0=⊃z←IC.Srv '' '127.0.0.1' 0 ('Protocol' 'IPv4') ('Mode' 'BlkRaw') ('BufferSize' 1E6)
+:If 0=⊃z←IC.Srv '' '127.0.0.1' 0 ('Protocol' 'IPv4') ('Mode' 'BlkRaw') ('BufferSize' 1E7)
      SRV←2⊃z
  :AndIf 0=⊃p←IC.GetProp SRV 'LocalAddr'
      PORT←2⊃p

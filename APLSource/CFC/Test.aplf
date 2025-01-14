@@ -1,4 +1,4 @@
- Test;metsim;metsimd;t;file;i;size1;size2;cn;comps;files;ok
+ Test;metsim;metsimd;t;file;i;size1;size2;cn;comps;files;ok;m
 ⍝ Run Start first
 
  BYTESIN←0
@@ -28,11 +28,16 @@
                  ⎕←'   Unable to read component ',⍕cn
                  :Continue
              :EndTrap
-             :If (⎕FREAD 1 cn)≢t
-                 ⎕←'Component ',(⍕cn),' does not match'
-                 ∘∘∘
+             :Trap 11
+                 m←(⎕FREAD 1 cn)≡t
              :Else
-                 ok+←1
+                 ⎕←'DOMAIN ERROR comparing component ',⍕cn
+                 :Continue
+             :EndTrap
+             :If ~m
+                 ⎕←'Component ',(⍕cn),' does not match'
+             :Else
+                 ok+←m
              :EndIf
          :EndFor
          ⎕←'   ',(⍕ok),' of ',(⍕≢comps),' compared OK'
