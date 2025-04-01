@@ -1,4 +1,4 @@
- r←Init;z;p
+ r←CFCInit;z;p
  :If 0=#.⎕NC'Conga'
      'Conga'#.⎕CY'conga'
  :EndIf

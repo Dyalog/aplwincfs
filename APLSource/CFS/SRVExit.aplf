@@ -1,6 +1,6 @@
 SRVExit msg
-'E' Log msg
-'E' Log 'Close form to exit'
+'E' SRVLog msg
+'E' SRVLog 'Close form to exit'
 'fmAFS' ⎕WI 'Wait'
 ⍝⎕SA←'OFF'
 ⍝⎕DL 5

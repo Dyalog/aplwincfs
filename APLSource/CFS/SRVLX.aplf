@@ -1,4 +1,4 @@
-SRVLX;cmdargs;port;z;runtime;⎕ELX
+SRVLX standalone;cmdargs;port;z;runtime;⎕ELX
 SRVInitGlobals
 SRVMakeForm
 
@@ -8,12 +8,17 @@ runtime←⎕SYS[21]
 'I' SRVLog 'AFS Starting up'
 'I' SRVLog 'W_Init: ',3⊃⎕WCALL 'W_Init'
 
-:If 0=port←↑⎕FI GetCmdArg 'CFSPORT'
-    SRVExit 'CFSPORT not found on command line'
+:If ∼standalone
+    port←↑⎕FI (NGET 'C:\METSIMD\CFSPORT.txt')∼⎕TCNL,⎕TCLF
+:Else
+    port←↑⎕FI GetCmdArg 'CFSPORT'
+:EndIf
+:If 0=port
+    SRVExit 'CFSPORT not found'
 :EndIf
 
-
 :If 0≠↑z←SQAInit ''
+:Andif 1 10011 ≢ 2↑z⍝ Already initialised
     SRVExit 'Unable to initialise SQAPL: ',⍕z
 :EndIf
 

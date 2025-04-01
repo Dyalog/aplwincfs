@@ -1,19 +1,25 @@
- r←CFCConnect;done;data;event;rc;id;z
+ r←CFCConnect standalone;done;data;event;rc;id;z
  done←0
-
- ⎕CMD (aplw∆exe,' c:\aplwin19\CFS CFSPORT=',⍕4⊃PORT) ''
+:If standalone
+    ⎕CMD (aplw∆exe,' c:\aplwin19\CFS CFSPORT=',⍕4⊃PORT) ''
+:EndIf
  SEQUENCE←0
+ 'CFCForm' ⎕WC 'Form' 'Close this form to disconnect' (50 10)(300 500)('Coord' 'Pixel')⍝('Event' 'Close' 'CFCClose')
+ 'CFCForm.L1' ⎕WC 'Label' ('Connecting on port ',⍕2↑PORT) (10 10)
+ 2 ⎕NQ '.' 'Flush'
 
  :Repeat
-     ⎕←'... waiting for connection to ',(⍕2↑PORT),' ...'
-    (rc id event data)←4↑z←IC.Wait SRV 5000
-    :If done←rc≠0
-        r←2 ('Failed to connect to client: ',⍕rc)
-    :Else
+     (rc id event data)←4↑z←IC.Wait SRV 1000
+     ⎕←z
+     :If done←rc≠0
+        CFCLog 'Failed to connect to client: ',⍕rc
+        →0
+     :Else
         :Select event
         :Case 'Connect'
             done←1 ⋄ CONN←2⊃z
-            →0 ⊣ r←0 CONN
+            CFCLog 'Connected via ',CONN
+            r←0 CONN
 
         :Case 'Timeout'
 
@@ -22,4 +28,7 @@
             r←1 'some kind of error'
         :EndSelect
     :EndIf
- :Until done
+ :Until done∨0=⎕NC 'CFCForm'
+ :If ~done
+     r←1 'Connection failed'
+ :EndIf

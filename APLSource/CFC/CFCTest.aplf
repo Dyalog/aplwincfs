@@ -1,4 +1,4 @@
- Test folder;metsim;metsimd;t;file;i;size1;size2;cn;comps;files;ok;m;bad;z;xfnums
+ CFCTest folder;metsim;metsimd;t;file;i;size1;size2;cn;comps;files;ok;m;bad;z;xfnums
 ⍝ Run Start first
 
  BYTESIN←0

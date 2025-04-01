@@ -1,0 +1,3 @@
+r←NGET file;yn
+file ⎕XNTIE tn←¯1+⌊/0,⎕XNNUMS
+r←⎕NREAD tn 82 (⎕NSIZE tn) 0

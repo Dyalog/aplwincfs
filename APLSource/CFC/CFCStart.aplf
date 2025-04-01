@@ -1,5 +1,6 @@
-r←CFCStart standalone;z;p;rc;event;data;done
+r←CFCStart standalone;z;p;rc;event;data;done;port
 CFCInit
+
 :If 0=⊃z←IC.Srv '' '127.0.0.1' 0 ('Protocol' 'IPv4') ('Mode' 'BlkRaw') ('BufferSize' 1E7)
      SRV←2⊃z
  :AndIf 0=⊃p←IC.GetProp SRV 'LocalAddr'
@@ -7,5 +8,7 @@ CFCInit
  :Else
      →0 ⊣ r←1 'Failed to create listener'
  :EndIf
-
+ :If ~standalone
+     (⊂⍕4⊃PORT) ⎕NPUT 'C:\METSIMD\CFSPORT.txt' 1
+ :EndIf
  r←CFCConnect standalone

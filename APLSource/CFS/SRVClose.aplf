@@ -1,5 +1,5 @@
 SRVClose;sock;z
 
 sock←⎕NSELF
-'I' Log 'Socket closed ',⍕sock
+'I' SRVLog 'Socket closed ',⍕sock
 z←sock ⎕ni 'Close'
