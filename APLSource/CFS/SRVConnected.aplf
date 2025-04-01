@@ -1,2 +1,2 @@
-Connected sock
+SRVConnected sock
 ⎕←'we have a new connection on socket ',⍕sock

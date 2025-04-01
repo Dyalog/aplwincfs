@@ -1,4 +1,4 @@
-Accept sock ; new
+SRVAccept sock ; new
 new ←3⊃ sock ⎕ni 'Accept'
 'New Connection received ',⍕new
 

@@ -1,10 +1,10 @@
-Read;sock;r;slen;len;apl;res;ok;req;dyadic;fn;rarg;larg;buf;z;sequence
+SRVRead;sock;r;slen;len;apl;res;ok;req;dyadic;fn;rarg;larg;buf;z;sequence
 sock←⎕NSELF
-'I' Log 'Read on ',⍕sock
-(r buf)←'' ReadBytes sock 4
+'I' SRVLog 'Read on ',⍕sock
+(r buf)←'' SRVReadBytes sock 4
 
 len←¯4+256⊥¯1+⎕av⍳r
-(r buf)←buf ReadBytes sock len
+(r buf)←buf SRVReadBytes sock len
 :If 0≠⍴buf
     ⎕←'Unexpected data remaining in buffer'
     ∘∘∘
@@ -14,9 +14,9 @@ sequence←¯1
 :If ok=0
    dyadic←4=⍴req
    (sequence fn rarg larg)←4↑req,'' ''
-   :If ''=1↑fn ⋄ fn←'⎕',1↓fn ⋄ :EndIf
+   :If '≢'=1↑fn ⋄ fn←'⎕',1↓fn ⋄ :EndIf
    :If (⊂fn)∊ValidFns
-      'I' Log 'Calling ',fn,' (cmd sequence #',(⍕sequence),')'
+      'I' SRVLog 'Calling ',fn,' (cmd sequence #',(⍕sequence),')'
       :Try
          :If (⊂fn)∊NiladicFns
              res←0 (⍎fn)
@@ -27,18 +27,18 @@ sequence←¯1
              res←0 (⍎((dyadic/'larg '),fn,' rarg'))
          :EndIf
       :CatchAll
-         'E' Log 'Trapped error: ',,⍕⎕DM
+         'E' SRVLog 'Trapped error: ',,⍕⎕DM
          res←3 ⎕DM
       :EndTry
    :Else
-      'E' Log 'Unauthorised: ',fn
+      'E' SRVLog 'Unauthorised: ',fn
       res←1 ('Invalid call to function "',fn,'"')
    :EndIf
 :Else
    res←2 'Unable to decode request'
 :EndIf
 
- :If 0 0 ∨.≠2↑z←sock Send 2⊃SQAApl2Scar (sequence,res) 0
-     Exit 'Unable to send response: ',⍕z
+ :If 0 0 ∨.≠2↑z←sock SRVSend 2⊃SQAApl2Scar (sequence,res) 0
+     SRVExit 'Unable to send response: ',⍕z
  :EndIf
- 'I' Log (⍕3⊃z),' response bytes sent'
+ 'I' SRVLog (⍕3⊃z),' response bytes sent'

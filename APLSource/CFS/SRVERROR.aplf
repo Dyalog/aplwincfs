@@ -1,0 +1,3 @@
+R←SRVERROR X
+⍝ Intentionall fail - for testing
+1÷0

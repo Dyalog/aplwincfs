@@ -1,0 +1,7 @@
+R←NEXISTS name;⎕ELX;tn
+R←0
+⎕ELX←'→0'
+tn←¯1+⌊/0,⎕NNUMS
+name ⎕XNTIE tn
+⎕NUNTIE tn
+R←1

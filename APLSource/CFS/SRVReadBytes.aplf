@@ -1,4 +1,4 @@
-r←buf ReadBytes args;z;sock;minimum;data
+r←buf SRVReadBytes args;z;sock;minimum;data
 (sock minimum)←args
 :While minimum>⍴buf
     z←sock ⎕ni 'Recv' 'char' '' 0
@@ -7,7 +7,7 @@ r←buf ReadBytes args;z;sock;minimum;data
         ∘∘∘
     :EndIf
     data←3⊃z
-    'I' Log 'Received ',(⍕⍴data),' bytes ...'
+    'I' SRVLog 'Received ',(⍕⍴data),' bytes ...'
     buf←buf,data
 :EndWhile
 

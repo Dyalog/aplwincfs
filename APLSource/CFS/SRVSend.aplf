@@ -1,0 +1,10 @@
+r←sock SRVSend payload;size;data;blksize;n
+size←⎕av[⎕IO+,(4/256)⊤4+⍴payload]
+data←size,payload
+blksize←1000000
+:While 0<⍴data
+   n←blksize⌊⍴data
+   'I' SRVLog 'Sending ',(⍕n),' bytes'
+   r←sock ⎕ni 'Send' (n↑data) 'char'
+   data←blksize↓data
+:EndWhile

@@ -1,0 +1,3 @@
+R←SRVEXEC R
+⍝ This shoujld not be enabled in SRVInitGlobals except for testing
+R←⍎R

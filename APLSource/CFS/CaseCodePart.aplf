@@ -1,0 +1,10 @@
+ name←CaseCodePart name;bin;digits;len;⎕IO
+⍝ case-code a string
+ ⎕IO←0
+ →0⍴⍨0∊⍴name  ⍝ empty name doesn't get case coded
+ →0⍴⍨'⎕'=↑name  ⍝ sysvar doesn't get case coded
+ bin←name∊'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+ len←⌈3÷⍨↑⍴,bin
+ digits←2⊥⌽⍉⌽len 3⍴bin↑⍨3×len
+ digits←digits↓⍨+/^\0=digits
+ name,←'-','0123456789'[digits,0⍴⍨⍬≡digits]

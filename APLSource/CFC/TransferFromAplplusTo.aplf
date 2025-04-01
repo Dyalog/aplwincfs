@@ -1,0 +1,40 @@
+ r←source TransferFromAplplusTo target;tns;fnums;ftie;ok;ttn;stn;⎕ML;next;start;cn
+⍝ Copy a component file from APL+Win to Dyalog APL
+⍝ Return original and resulting ⎕FSIZEs
+
+ ⎕ML←1
+
+ ok←0
+ :For (fnums ftie) :In ('⎕FNUMS' '⎕FTIE')('⎕XFNUMS' '⎕XFTIE')('⎕CFNUMS' '⎕CFTIE')
+     tns←(fnums RPC)⍬      ⍝ Remote tie numbers in use
+     stn←1+⌈/0,tns          ⍝ Free tie number
+     :Trap 0
+         source(ftie RPC)stn   ⍝ Tie it
+     :Else
+         :Continue
+     :EndTrap
+     ok←1
+     :Leave
+ :EndFor
+
+ ('FILE NAME ERROR: Unable to FTIE,XFTIE or CFTIE "',source,'"')⎕SIGNAL ok↓22
+
+ :Trap 0
+     ttn←target ⎕FCREATE 0
+ :Else
+     (⊃⎕DMX.DM)⎕SIGNAL ⎕DMX.EN
+ :EndTrap
+
+ (start next)←2↑r←('⎕FSIZE'RPC)stn
+ :If 1≠start ⍝ Does not start at 1
+     ((start-1)⍴⊂'')⎕FAPPEND ttn
+     (start-1)⎕FDROP ttn ⍝ Get the correct starting component
+ :EndIf
+
+ :For cn :In (start-1)+⍳next-start
+     (('⎕FREAD'RPC)stn cn)⎕FAPPEND ttn
+ :EndFor
+
+ '⎕FUNTIE'RPC stn
+ r←r(⎕FSIZE ttn)
+ ⎕FUNTIE ttn

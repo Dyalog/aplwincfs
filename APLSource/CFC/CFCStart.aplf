@@ -1,5 +1,5 @@
-r←Start;z;p;rc;event;data;done
-Init
+r←CFCStart standalone;z;p;rc;event;data;done
+CFCInit
 :If 0=⊃z←IC.Srv '' '127.0.0.1' 0 ('Protocol' 'IPv4') ('Mode' 'BlkRaw') ('BufferSize' 1E7)
      SRV←2⊃z
  :AndIf 0=⊃p←IC.GetProp SRV 'LocalAddr'
@@ -8,4 +8,4 @@ Init
      →0 ⊣ r←1 'Failed to create listener'
  :EndIf
 
- r←Connect
+ r←CFCConnect standalone

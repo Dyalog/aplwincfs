@@ -1,0 +1,26 @@
+SRVLX;cmdargs;port;z;runtime;⎕ELX
+SRVInitGlobals
+SRVMakeForm
+
+⎕ELX←'''I'' SRVLog ∊⎕DM ⋄ ⎕DL 10 ⋄ ''fmAFS'' ⎕WI ''Wait'''
+runtime←⎕SYS[21]
+
+'I' SRVLog 'AFS Starting up'
+'I' SRVLog 'W_Init: ',3⊃⎕WCALL 'W_Init'
+
+:If 0=port←↑⎕FI GetCmdArg 'CFSPORT'
+    SRVExit 'CFSPORT not found on command line'
+:EndIf
+
+
+:If 0≠↑z←SQAInit ''
+    SRVExit 'Unable to initialise SQAPL: ',⍕z
+:EndIf
+
+:If 0=SOCK←SRVConnect port
+    SRVExit 'Unable to connect'
+:EndIf
+
+:If runtime
+   'fmAFS' ⎕WI 'Wait'
+:EndIf

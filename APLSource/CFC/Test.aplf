@@ -1,22 +1,29 @@
- Test;metsim;metsimd;t;file;i;size1;size2;cn;comps;files;ok;m
+ Test folder;metsim;metsimd;t;file;i;size1;size2;cn;comps;files;ok;m;bad;z;xfnums
 ⍝ Run Start first
 
  BYTESIN←0
  ⎕FUNTIE ⎕FNUMS
- '⎕FUNTIE'RPC'⎕FNUMS'RPC ⍬
+ :If 0≠≢xfnums←'⎕XFNUMS'RPC ⍬
+     '⎕FUNTIE'RPC xfnums
+ :EndIf
 
- metsim←'C:\METSIM\Examples\'
- metsimd←'C:\METSIMD\Examples\'
+ metsim←'C:\METSIMD\new-conv-input\',folder,'\'
+ metsimd←'C:\METSIMD\new-conv-output\',folder,'\'
 
- files←∊¨1↓¨⎕NPARTS¨⊃0 ⎕NINFO⍠1⊢metsim,'*.sfw'
- files∩←∊¨1↓¨⎕NPARTS¨⊃0 ⎕NINFO⍠1⊢metsimd,'*.sfw'
- files←3↓files
+ files←∊¨1↓¨⎕NPARTS¨⊃0 ⎕NINFO⍠1⊢metsim,'*.sf*'
+ files∩←∊¨1↓¨⎕NPARTS¨⊃0 ⎕NINFO⍠1⊢metsimd,'*.sf*'
 
  :For i :In ⍳≢files
      ok←0
      file←i⊃files
      ⎕←(⍕i),' of ',(⍕≢files),': ',file
-     (metsimd,file)⎕FSTIE 1
+     :Trap 0
+         (metsimd,file)⎕FSTIE 1
+     :Else
+         ⎕←⎕DMX.Message
+         :Continue
+     :EndTrap
+
      (metsim,file)('⎕XFSTIE'RPC)1
      :If (2↑size1←⎕FSIZE 1)≢2↑size2←'⎕FSIZE'RPC 1
          ⎕←'File component counts do not match: ',(⍕size1),' in Dyalog vs ',⍕size2
@@ -29,13 +36,24 @@
                  :Continue
              :EndTrap
              :Trap 11
-                 m←(⎕FREAD 1 cn)≡t
+                 m←(z←⎕FREAD 1 cn)≡t
              :Else
                  ⎕←'DOMAIN ERROR comparing component ',⍕cn
                  :Continue
              :EndTrap
              :If ~m
-                 ⎕←'Component ',(⍕cn),' does not match'
+                 :Trap 0
+                     bad←⍸z≢¨t
+                 :Else
+                     ⎕←'Unable to compare component ',(⍕cn),': ',⊃⎕DMX.DM
+                     :Continue
+                 :EndTrap
+                 :If ∧/0∊¨⍴¨z[bad]
+                     ⎕←(⍕≢bad),' incorrect prototypes in component ',⍕cn
+                 :Else
+                     ⎕←'Component ',(⍕cn),' does not match'
+                     2 3⍴'ATF' 'Diff' 'SCAR' (z[bad])((⊃z[bad])≢1⊃t[bad])(t[bad])
+                 :EndIf
              :Else
                  ok+←m
              :EndIf

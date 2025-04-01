@@ -1,0 +1,3 @@
+R←SRVECHO R
+⍝ Echo argument back to client
+R←R

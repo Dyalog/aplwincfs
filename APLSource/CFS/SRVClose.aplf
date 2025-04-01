@@ -1,4 +1,4 @@
-Close;sock;z
+SRVClose;sock;z
 
 sock←⎕NSELF
 'I' Log 'Socket closed ',⍕sock

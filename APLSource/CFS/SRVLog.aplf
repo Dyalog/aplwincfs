@@ -1,0 +1,9 @@
+r←mode SRVLog message;ts;i;maxrows
+r←0 0⍴0 ⍝ Allow chaining
+→(mode∊SRVLOGMODES)↓0
+ts←,'ZI2,<:>,ZI2,<:>,ZI2' ⎕FMT 1 3⍴3↓⎕TS
+SRVLOGTEXT←SRVLOGTEXT,⎕TCNL,ts,' ',mode,' ',message
+maxrows←3⊃'fmAFS.output' ⎕WI 'where'
+i←(+\⎕TCNL=⌽SRVLOGTEXT)⍳maxrows
+SRVLOGTEXT←(-i)↑SRVLOGTEXT
+'fmAFS.output' ⎕wi 'Set' ('caption' SRVLOGTEXT)

@@ -1,0 +1,19 @@
+sock←SRVConnect args;z;step;okrcs
+
+:If 1=⍴,args
+    args←args,⊂'127.0.0.1'
+:EndIf
+okrcs←(¯1 10022)(¯1 10035) ⍝ Apperently these are "OK" returns codes from Connect and Accept
+step←'Socket'
+:If 0 0≡2↑z←⎕NI 'Socket'
+   :Ex sock←3⊃z
+   :Ex step←'Connect',0⍴'I' SRVLog 'Socket created'
+:AndIf (⊂z←sock ⎕NI (⊂'Connect'),args)∊okrcs
+   :Ex step←'Accept',0⍴'I' SRVLog 'Socket connected to ',⍕args
+:AndIf (⊂z←sock ⎕NI 'Accept')∊okrcs
+   sock ⎕NI 'Set'  ('onCloseNotify' 'SRVClose') ('onReadNotify' 'SRVRead')
+   'W' SRVLog 'AFS Ready'
+:Else
+   'E' SRVLog 'Unable to connect back to listener: ',⍕step z
+   sock←0
+:EndIf

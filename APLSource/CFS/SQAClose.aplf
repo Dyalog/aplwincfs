@@ -17,5 +17,5 @@ r←x SQAClose y;i;d;m;⎕IO
  →0
 
  L1:d←⎕EX '⍙SQASets' ⋄ →0      ⍝ ROOT: CLean up all sets
- L2:m←~((¯1+d⍳¨'.')↑¨d)∊⊂y     ⍝ Keep sets not under connection
+ L2:m←∼((¯1+d⍳¨'.')↑¨d)∊⊂y     ⍝ Keep sets not under connection
   ⍙SQASets←(⊂m/d),m/1↓⍙SQASets ⋄ →0

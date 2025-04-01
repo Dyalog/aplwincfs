@@ -1,6 +1,6 @@
-Exit msg
+SRVExit msg
 'E' Log msg
 'E' Log 'Close form to exit'
 'fmAFS' ⎕WI 'Wait'
-...
-⎕SA←'OFF'
+⍝⎕SA←'OFF'
+⍝⎕DL 5
